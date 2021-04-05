@@ -1,0 +1,5 @@
+pytest==6.2.2
+allure-pytest==2.8.40
+selenium==3.141.0
+PyHamcrest==2.0.2
+pytest-testrail==2.9.0
