@@ -136,7 +136,7 @@ class Api(object):
         if content_type.startswith('text/'):
             return r.content
 
-        # All other data
+        # All other configs
         return r.content
 
     def __parse_json(self, response):

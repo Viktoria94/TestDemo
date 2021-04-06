@@ -1,7 +1,7 @@
 import allure
 import pytest
 
-from data.device import WUI_ADMIN_URL
+from configs.device import WUI_ADMIN_URL
 from elements.MD.MainMenu import MDMainMenuHelper
 from elements.MD.RecordingPage import RecordingPageHelper
 

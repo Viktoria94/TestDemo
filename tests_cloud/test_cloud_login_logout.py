@@ -1,8 +1,8 @@
 import allure
 import pytest
 
-from data.cloud import CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
-from data.google import GMAIL, GMAIL_PASSWORD
+from configs.cloud import CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
+from configs.google import GMAIL, GMAIL_PASSWORD
 from elements.Cloud.LoginPage import LoginPageHelper
 from elements.Cloud.MainMenu import CloudMainMenuHelper
 

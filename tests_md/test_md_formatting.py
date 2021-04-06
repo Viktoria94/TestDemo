@@ -1,10 +1,13 @@
 import allure
 import pytest
 
-from data.device import WUI_ADMIN_URL
+from configs.device import WUI_ADMIN_URL
+from configs.jira import JIRA_URL
 from elements.MD.SDCard import SDCardPageHelper
 
 
+@pytest.mark.xfail
+@allure.issue(JIRA_URL + "MD-11206")
 @pytest.mark.skip
 @allure.feature('MD')
 @allure.severity(allure.severity_level.MINOR)

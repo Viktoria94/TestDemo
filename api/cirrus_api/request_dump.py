@@ -115,7 +115,7 @@ def _dump_response_data(response, prefixes, bytearr, headers_only=False):
 def _coerce_to_bytes(data):
     if not isinstance(data, bytes) and hasattr(data, 'encode'):
         data = data.encode('utf-8')
-    # Don't bail out with an exception if data is None
+    # Don't bail out with an exception if configs is None
     return data if data is not None else b''
 
 
@@ -123,7 +123,7 @@ def dump_response(response, request_prefix=b'< ', response_prefix=b'> ',
                   data_array=None, headers_only=False):
     """Dump a single request-response cycle's information.
 
-    This will take a response object and dump only the data that requests can
+    This will take a response object and dump only the configs that requests can
     see for that single request-response cycle.
 
     Example::
@@ -132,20 +132,20 @@ def dump_response(response, request_prefix=b'< ', response_prefix=b'> ',
         from requests_toolbelt.utils import dump
 
         resp = requests.get('https://api.github.com/users/sigmavirus24')
-        data = dump.dump_response(resp)
-        print(data.decode('utf-8'))
+        configs = dump.dump_response(resp)
+        print(configs.decode('utf-8'))
 
     :param response:
         The response to format
     :type response: :class:`requests.Response`
     :param request_prefix: (*optional*)
-        Bytes to prefix each line of the request data
+        Bytes to prefix each line of the request configs
     :type request_prefix: :class:`bytes`
     :param response_prefix: (*optional*)
-        Bytes to prefix each line of the response data
+        Bytes to prefix each line of the response configs
     :type response_prefix: :class:`bytes`
     :param data_array: (*optional*)
-        Bytearray to which we append the request-response cycle data
+        Bytearray to which we append the request-response cycle configs
     :type data_array: :class:`bytearray`
     :returns: Formatted bytes of request and response information.
     :rtype: :class:`bytearray`
@@ -177,17 +177,17 @@ def dump_all(response, request_prefix=b'< ', response_prefix=b'> ', headers_only
         from requests_toolbelt.utils import dump
 
         resp = requests.get('https://httpbin.org/redirect/5')
-        data = dump.dump_all(resp)
-        print(data.decode('utf-8'))
+        configs = dump.dump_all(resp)
+        print(configs.decode('utf-8'))
 
     :param response:
         The response to format
     :type response: :class:`requests.Response`
     :param request_prefix: (*optional*)
-        Bytes to prefix each line of the request data
+        Bytes to prefix each line of the request configs
     :type request_prefix: :class:`bytes`
     :param response_prefix: (*optional*)
-        Bytes to prefix each line of the response data
+        Bytes to prefix each line of the response configs
     :type response_prefix: :class:`bytes`
     :returns: Formatted bytes of request and response information.
     :rtype: :class:`bytearray`

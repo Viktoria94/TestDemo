@@ -1,7 +1,7 @@
 import allure
 
-from data.cloud import CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
-from data.device import WUI_ADMIN_URL
+from configs.cloud import CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
+from configs.device import WUI_ADMIN_URL
 from elements.Cloud.DevicePage import DevicePageHelper
 from elements.Cloud.LoginPage import LoginPageHelper
 from elements.Cloud.MainMenu import CloudMainMenuHelper

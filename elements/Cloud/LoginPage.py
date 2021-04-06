@@ -3,7 +3,7 @@ import time
 from selenium.webdriver.common.by import By
 
 from elements.BasePage import BasePage
-from data.timeouts import TIMEOUT
+from configs.timeouts import TIMEOUT
 
 
 class LoginPageLocators:
