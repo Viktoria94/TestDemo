@@ -4,7 +4,7 @@ from selenium.common.exceptions import ElementNotInteractableException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
-from configs.timeouts import TIMEOUT
+from configs.automation_config import TIMEOUT
 
 
 class BasePage:

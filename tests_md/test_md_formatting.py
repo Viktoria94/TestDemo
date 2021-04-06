@@ -2,7 +2,7 @@ import allure
 import pytest
 
 from configs.device import WUI_ADMIN_URL
-from configs.jira import JIRA_URL
+from configs.automation_config import JIRA_URL
 from elements.MD.SDCard import SDCardPageHelper
 
 
