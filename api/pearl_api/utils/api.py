@@ -1,14 +1,14 @@
 """
-Internal utilities: API
+Internal utilities: api
 ~~~~~~~~~~~~~~~~~~~~~~~~
 """
 
 from ..api import Api
 
 """ 
-Relative REST API 
+Relative REST api 
 
-Provides convenient way to call subsystem REST API
+Provides convenient way to call subsystem REST api
 For example, for for specified channel it can be
   self._get('name')
 instead of
@@ -27,7 +27,7 @@ class RelativeApi(object):
             self._baseurl += strparams
 
 
-    """ Helpers to call API with relative URL """
+    """ Helpers to call api with relative URL """
     def _get(self, url, params=None, **kwargs):
         return self._api.get(self._baseurl+url, params, **kwargs)
     

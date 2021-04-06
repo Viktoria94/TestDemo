@@ -46,7 +46,7 @@ def resets_json(fn):
 
 class Device(object):
     """
-    Device class represents a device and provides methods for device API.
+    Device class represents a device and provides methods for device api.
     """
 
     def __init__(self, device_id, api_access):
@@ -131,7 +131,7 @@ class Device(object):
         Convenience method for getting device settings
         """
 
-        # API v2 returns settings as a dictionary.
+        # api v2 returns settings as a dictionary.
         settings = self.telemetry.get("settings", {})
         value = self.walk_through_cfg_params(settings, prop_name)
         return value

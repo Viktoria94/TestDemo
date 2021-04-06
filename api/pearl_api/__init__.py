@@ -2,9 +2,9 @@
 Multimedia Devices Control library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-1. Direct REST API Access
+1. Direct REST api Access
 
-md.Api is REST API caller for Multimedia Devices (Grid/Pearl/Pearl-2)
+md.Api is REST api caller for Multimedia Devices (Grid/Pearl/Pearl-2)
 usage:
    >>> import md
    >>> api = md.Api('10.0.0.1')
@@ -42,9 +42,9 @@ __author__  = 'Roman Davydov'
 
 # Errors
 from .api import Error, ServerError, NotFound, Forbidden
-# REST API
+# REST api
 from .api import Api
-# Device API
+# Device api
 from .device import Device
 
 from .remote_login_tunnel import RemoteLoginTunnel

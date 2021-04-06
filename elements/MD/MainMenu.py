@@ -1,5 +1,5 @@
 from selenium.webdriver.common.by import By
-from Elements.BasePage import BasePage
+from elements.BasePage import BasePage
 
 
 class MDMainMenuLocators:

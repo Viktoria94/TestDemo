@@ -25,13 +25,13 @@ class Collection(RelativeApi):
             return self._id
 
         """
-        Retrieve property via REST API
+        Retrieve property via REST api
         """
         def getprop(self, name):
             return self._get(name)
 
         """
-        Automatically retrieve property via REST API
+        Automatically retrieve property via REST api
         """
         def __getattr__(self, name):
             if self._props == None or name in self._props:

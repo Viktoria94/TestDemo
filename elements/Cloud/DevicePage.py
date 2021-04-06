@@ -1,7 +1,7 @@
 from hamcrest import assert_that, equal_to
 from selenium.webdriver.common.by import By
 
-from Elements.BasePage import BasePage
+from elements.BasePage import BasePage
 
 
 class DevicePageLocators:

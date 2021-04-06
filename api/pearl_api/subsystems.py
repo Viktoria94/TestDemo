@@ -11,8 +11,8 @@ from .utils.collection import Collection
 
 class Subsystem(RelativeApi):
     """ Simple device subsystem base:
-    :param api      - REST API instance
-    :param baseurl  - REST API base url
+    :param api      - REST api instance
+    :param baseurl  - REST api base url
     :param props    - allowed properties
     """
     def __init__(self, api, baseurl, props=None):

@@ -2,8 +2,8 @@ import time
 
 from selenium.webdriver.common.by import By
 
-from Elements.BasePage import BasePage
-from constants import TIMEOUT
+from elements.BasePage import BasePage
+from data.timeouts import TIMEOUT
 
 
 class LoginPageLocators:

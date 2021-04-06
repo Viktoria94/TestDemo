@@ -1,5 +1,5 @@
 """
-Multimedia Devices REST API library
+Multimedia Devices REST api library
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 """
@@ -14,12 +14,12 @@ import json
 import logging
 
 """
-API Errors
+api Errors
 ~~~~~~~~~~~
 """
 
 class Error(Exception):
-    """ Base error for all API command """
+    """ Base error for all api command """
     def __init__(self, url, message, code=0):
         self.url = url
         self.message = message
@@ -43,7 +43,7 @@ class ServerError(Error):
 
 
 """
-Device REST API
+Device REST api
 """
 
 class Api(object):
@@ -89,7 +89,7 @@ class Api(object):
             self._logger().error(dump_str)
 
     def __call(self, method, name, params=None, **kwargs):
-        """ Call REST API and parse results """
+        """ Call REST api and parse results """
 
         url = self.baseurl + name
         if method == 'get':
@@ -158,7 +158,7 @@ class Api(object):
             raise Error(response.request.url, 'Unsupported status', response.status_code)
 
     """
-    REST API calls
+    REST api calls
     ~~~~~~~~~~~~~~
     For succeeded call returns a result or None.
     In case of error a corresponding exception is risen

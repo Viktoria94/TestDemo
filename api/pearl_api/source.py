@@ -95,7 +95,7 @@ class Sources(Collection):
             self._items[info['id']] = p
         return p
 
-    #TODO add method to create RTSP soures when REST API is available
+    #TODO add method to create RTSP soures when REST api is available
     def new(self, type):
         """ Creates new source, applicable for RTSP sources """
         pass

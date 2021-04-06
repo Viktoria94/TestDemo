@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 
-from Elements.BasePage import BasePage
+from elements.BasePage import BasePage
 
 
 class RecordingPageLocators:

@@ -2,13 +2,13 @@ import allure
 import pytest
 from selenium import webdriver
 
-from API.cirrus_api import frontapi2
+from api.cirrus_api import frontapi2
 
 
 @pytest.fixture(scope='function')
 def new_environment():
     with allure.step('Open browser Google Chrome.'):
-        driver = webdriver.Chrome('./chromedriver')
+        driver = webdriver.Chrome('drivers/chromedriver')
         driver.fullscreen_window()
 
     yield driver
