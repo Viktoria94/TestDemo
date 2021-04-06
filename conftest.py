@@ -1,13 +1,11 @@
 import allure
 import pytest
-
 from selenium import webdriver
 
-from API.cirrus_api import frontapi2, device
-from Elements.MD.EpiphanCloudPage import EpiphanCloudPageHelper
+from API.cirrus_api import frontapi2
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope='function')
 def new_environment():
     with allure.step('Open browser Google Chrome.'):
         driver = webdriver.Chrome('./chromedriver')

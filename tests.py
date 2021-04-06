@@ -10,7 +10,7 @@ from Elements.MD.EpiphanCloudPage import EpiphanCloudPageHelper
 from Elements.MD.MainMenu import MDMainMenuHelper
 from Elements.MD.RecordingPage import RecordingPageHelper
 from Elements.MD.SDCard import SDCardPageHelper
-from constants import WUI_ADMIN_URL, CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
+from constants import WUI_ADMIN_URL, CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL, GMAIL, GMAIL_PASSWORD
 
 
 @pytestrail.case('C1703364')
@@ -45,12 +45,53 @@ def test_device_pairing(new_environment):
         EpiphanCloudPageHelper(driver_chrome).unpair_device()
 
 
+@pytest.mark.parametrize("username", [CLOUD_USERNAME, "", "wrong_username"])
+@pytest.mark.parametrize("password", ["", "wrong_password"])
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud through username and password with wrong credentials")
+def test_cloud_login_with_wrong_credentials(new_environment, username, password):
+    driver_chrome = new_environment
+
+    with allure.step("1. Login in the Cloud"):
+        driver_chrome.get(CLOUD_URL)
+        LoginPageHelper(driver_chrome).login(username, password)
+
+    with allure.step("2. Validate authorization"):
+        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_not_visible()
+
+
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud through username and password")
+def test_cloud_login_with_right_credentials(new_environment):
+    driver_chrome = new_environment
+
+    with allure.step("1. Login in the Cloud"):
+        driver_chrome.get(CLOUD_URL)
+        LoginPageHelper(driver_chrome).login(CLOUD_USERNAME, CLOUD_PASSWORD)
+
+    with allure.step("2. Validate authorization"):
+        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_visible()
+
+
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud with google")
+def test_cloud_login_with_google(new_environment):
+    driver_chrome = new_environment
+
+    with allure.step("1. Login in the Cloud with google"):
+        driver_chrome.get(CLOUD_URL)
+        LoginPageHelper(driver_chrome).login_with_google(GMAIL, GMAIL_PASSWORD)
+
+    with allure.step("2. Validate authorization"):
+        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_visible()
+
+
 @pytestrail.case('C1703362')
 @allure.feature('MD')
 @allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Checking name of record")
 @pytest.mark.parametrize("file_type", ["AVI", "MOV", "MPEG-TS", "MP4", "MP4-FRAGMENTED"])
-@pytest.mark.parametrize("record_duration", [10, 20, 30])
+@pytest.mark.parametrize("record_duration", [10])
 def test_checking_record_name(new_environment, file_type, record_duration):
     driver_chrome = new_environment
 
@@ -81,6 +122,7 @@ def test_checking_record_name(new_environment, file_type, record_duration):
         recording_page.validate_record_name(1, recording_page.last_record_name)
 
 
+@pytest.mark.skip
 @pytestrail.case('C1703363')
 @allure.feature('MD')
 @allure.severity(allure.severity_level.MINOR)

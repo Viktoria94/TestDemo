@@ -1,3 +1,4 @@
+from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.by import By
 
 from Elements.BasePage import BasePage
@@ -12,3 +13,15 @@ class CloudMainMenuHelper(BasePage):
 
     def click_pair_device(self):
         self.find_element(CloudMainMenuLocators.PAIR_DEVICE_BTN).click()
+
+    def validate_main_menu_is_visible(self):
+        self.wait_element_is_visible(CloudMainMenuLocators.PAIR_DEVICE_BTN)
+
+    def validate_main_menu_is_not_visible(self):
+        pair_btn_is_not_visible = False
+        try:
+            self.wait_element_is_visible(CloudMainMenuLocators.PAIR_DEVICE_BTN)
+        except TimeoutException:
+            pair_btn_is_not_visible = True
+
+        assert pair_btn_is_not_visible, "Pair button is visible"
