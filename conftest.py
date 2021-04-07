@@ -18,7 +18,7 @@ def pytest_runtest_makereport(item, call):
 def new_environment(request):
     with allure.step('Open browser Google Chrome.'):
         ext = '.exe' if platform.system() == 'Windows' else ''
-        driver = webdriver.Chrome(executable_path='drivers/chromedriver{}'.format(ext))
+        driver = webdriver.Chrome(executable_path=f'drivers/chromedriver{ext}')
         driver.maximize_window()
 
     yield driver
