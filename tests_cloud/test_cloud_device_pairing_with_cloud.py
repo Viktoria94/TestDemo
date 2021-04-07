@@ -10,6 +10,7 @@ from elements.MD.EpiphanCloudPage import EpiphanCloudPageHelper
 
 
 @allure.feature('Cloud')
+@allure.story('Test pairing')
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.title("Device pairing")
 def test_device_pairing(new_environment):
