@@ -1,6 +1,6 @@
 import time
 
-from selenium.common.exceptions import ElementNotInteractableException
+from selenium.common.exceptions import ElementNotInteractableException, NoAlertPresentException
 from selenium.webdriver.support import expected_conditions as ec
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -80,3 +80,15 @@ class BasePage:
         alert_obj = self.driver.switch_to.alert
         time.sleep(4)
         alert_obj.accept()
+
+    def get_text_alert(self, timeout=TIMEOUT):
+        start_time = time.time()
+
+        while (time.time() - start_time) < timeout:
+            try:
+                alert_obj = self.driver.switch_to.alert
+                return alert_obj.text
+            except NoAlertPresentException:
+                time.sleep(1)
+
+        assert False, "Alert is not chosen in timeout = " + str(timeout) + " secs"

@@ -14,28 +14,27 @@ from elements.MD.EpiphanCloudPage import EpiphanCloudPageHelper
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.title("Device pairing")
 def test_device_pairing(new_environment):
-    driver_chrome = new_environment
     device_name = "My favorite device"
 
     with allure.step("1. Open admin WUI on page Epiphan Cloud"):
-        driver_chrome.get(WUI_ADMIN_URL + "/avstudio")
+        new_environment.get(WUI_ADMIN_URL + "/avstudio")
 
     with allure.step("2. Get pairing code"):
-        pairing_code = EpiphanCloudPageHelper(driver_chrome).get_pairing_code()
+        pairing_code = EpiphanCloudPageHelper(new_environment).get_pairing_code()
 
     with allure.step("3. Login in the Cloud"):
-        driver_chrome.get(CLOUD_URL)
-        LoginPageHelper(driver_chrome).login(CLOUD_USERNAME, CLOUD_PASSWORD)
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login(CLOUD_USERNAME, CLOUD_PASSWORD)
 
     with allure.step("4. Click button Pair device"):
-        CloudMainMenuHelper(driver_chrome).click_pair_device()
+        CloudMainMenuHelper(new_environment).click_pair_device()
 
     with allure.step("5. Pair device to the Cloud with name" + device_name):
-        PairingPageHelper(driver_chrome).pair_device(pairing_code, device_name)
+        PairingPageHelper(new_environment).pair_device(pairing_code, device_name)
 
     with allure.step("6. Validate that the device has expected name"):
-        DevicePageHelper(driver_chrome).validate_device_name(device_name)
+        DevicePageHelper(new_environment).validate_device_name(device_name)
 
     with allure.step("7. Unpair the device"):
-        driver_chrome.get(WUI_ADMIN_URL + "/avstudio")
-        EpiphanCloudPageHelper(driver_chrome).unpair_device()
+        new_environment.get(WUI_ADMIN_URL + "/avstudio")
+        EpiphanCloudPageHelper(new_environment).unpair_device()

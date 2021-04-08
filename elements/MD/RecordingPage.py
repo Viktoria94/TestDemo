@@ -1,7 +1,6 @@
 import time
 from datetime import datetime, timedelta
 
-from selenium.common.exceptions import ElementClickInterceptedException
 from selenium.webdriver.common.by import By
 
 from elements.BasePage import BasePage
@@ -48,11 +47,7 @@ class RecordingPageHelper(BasePage):
         self.find_element(RecordingPageLocators.APPLY_BTN).click()
 
     def start_record(self):
-        # try:
         self.find_element(RecordingPageLocators.START_BTN).click()
-        # except ElementClickInterceptedException:
-        #     time.sleep(3)
-        #     self.find_element(RecordingPageLocators.START_BTN).click()
 
         channel_name = self.find_element(RecordingPageLocators.CHANNEL_NAME).text
         if self.current_file_type == "":

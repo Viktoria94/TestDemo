@@ -3,46 +3,112 @@ import pytest
 
 from configs.cloud import CLOUD_USERNAME, CLOUD_PASSWORD, CLOUD_URL
 from configs.cloud import GMAIL, GMAIL_PASSWORD
-from elements.Cloud.LoginPage import LoginPageHelper
+from elements.Cloud.LoginPage import LoginPageHelper, LoginPageLocators
 from elements.Cloud.MainMenu import CloudMainMenuHelper
 
 
-@pytest.mark.parametrize("username", [CLOUD_USERNAME, "", "wrong_username"])
-@pytest.mark.parametrize("password", ["", "wrong_password"])
+@allure.feature('Cloud')
+@allure.story('Login')
 @allure.severity(allure.severity_level.BLOCKER)
-@allure.title("Login in the Cloud through username and password with wrong credentials")
-def test_cloud_login_with_wrong_credentials(new_environment, username, password):
-    driver_chrome = new_environment
+@allure.title("Login in the Cloud through username and password with wrong password")
+def test_cloud_login_with_wrong_password(new_environment):
 
     with allure.step("1. Login in the Cloud"):
-        driver_chrome.get(CLOUD_URL)
-        LoginPageHelper(driver_chrome).login(username, password)
+        new_environment.get(CLOUD_URL)
+        lph = LoginPageHelper(new_environment)
+        lph.login(CLOUD_USERNAME, "wrong_password")
 
     with allure.step("2. Validate authorization"):
-        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_not_visible()
+        lph.wait_element_text(LoginPageLocators.WRONG_PASSWORD_MSG, "Incorrect username or password")
 
 
+@allure.feature('Cloud')
+@allure.story('Login')
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud through username and password with wrong username")
+@pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
+def test_cloud_login_with_wrong_username(new_environment, password):
+
+    with allure.step("1. Login in the Cloud"):
+        new_environment.get(CLOUD_URL)
+        lph = LoginPageHelper(new_environment)
+        lph.login("wrong_username@cloud.cloud", CLOUD_PASSWORD)
+
+    with allure.step("2. Validate authorization"):
+        lph.wait_element_text(LoginPageLocators.WRONG_USERNAME_MSG, "User not found")
+
+
+@allure.feature('Cloud')
+@allure.story('Login')
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud through username and password: username without @")
+@pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
+def test_cloud_login_with_wrong_type_username1(new_environment, password):
+
+    with allure.step("1. Login in the Cloud"):
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login("ItIsNotEmail", password)
+
+    with allure.step("2. Validate authorization"):
+        LoginPageHelper(new_environment).validate_login_alert(LoginPageLocators.USERNAME_INPUT,
+                                                              "Please include an '@' in the email address. "
+                                                              "'ItIsNotEmail' is missing an '@'.")
+
+
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud through username and password: username without symbols after @")
+@pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
+def test_cloud_login_with_wrong_type_username2(new_environment, password):
+    username = "HasNoSymbolAfter@"
+
+    with allure.step("1. Login in the Cloud"):
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login(username, password)
+
+    with allure.step("2. Validate authorization"):
+        LoginPageHelper(new_environment).validate_login_alert(LoginPageLocators.USERNAME_INPUT,
+                                                              "Please enter a part following '@'. '"
+                                                              + username + "' is incomplete.")
+
+
+@allure.feature('Cloud')
+@allure.story('Login')
+@allure.severity(allure.severity_level.BLOCKER)
+@allure.title("Login in the Cloud with empty fields")
+@pytest.mark.parametrize("username,password,field", [("", CLOUD_PASSWORD, LoginPageLocators.USERNAME_INPUT),
+                                                     (CLOUD_USERNAME, "", LoginPageLocators.PASSWORD_INPUT)])
+def test_cloud_login_with_empty_fields(new_environment, username, password, field):
+    with allure.step("1. Login in the Cloud"):
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login(username, password)
+
+    with allure.step("2. Validate authorization"):
+        LoginPageHelper(new_environment).validate_login_alert(field, "Please fill out this field.")
+
+
+@allure.feature('Cloud')
+@allure.story('Login')
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.title("Login in the Cloud through username and password")
 def test_cloud_login_with_right_credentials(new_environment):
-    driver_chrome = new_environment
 
     with allure.step("1. Login in the Cloud"):
-        driver_chrome.get(CLOUD_URL)
-        LoginPageHelper(driver_chrome).login(CLOUD_USERNAME, CLOUD_PASSWORD)
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login(CLOUD_USERNAME, CLOUD_PASSWORD)
 
     with allure.step("2. Validate authorization"):
-        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_visible()
+        CloudMainMenuHelper(new_environment).validate_main_menu_is_visible()
 
 
+@allure.feature('Cloud')
+@allure.story('Login')
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.title("Login in the Cloud with google")
 def test_cloud_login_with_google(new_environment):
-    driver_chrome = new_environment
 
     with allure.step("1. Login in the Cloud with google"):
-        driver_chrome.get(CLOUD_URL)
-        LoginPageHelper(driver_chrome).login_with_google(GMAIL, GMAIL_PASSWORD)
+        new_environment.get(CLOUD_URL)
+        LoginPageHelper(new_environment).login_with_google(GMAIL, GMAIL_PASSWORD)
 
     with allure.step("2. Validate authorization"):
-        CloudMainMenuHelper(driver_chrome).validate_main_menu_is_visible()
+        CloudMainMenuHelper(new_environment).validate_main_menu_is_visible()
