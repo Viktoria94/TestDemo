@@ -8,8 +8,8 @@ from elements.Cloud.MainMenu import CloudMainMenuHelper
 
 
 @allure.feature('Cloud')
-@allure.story('Login')
-@allure.severity(allure.severity_level.BLOCKER)
+@allure.story('Login with mistakes')
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Login in the Cloud through username and password with wrong password")
 def test_cloud_login_with_wrong_password(new_environment):
 
@@ -23,8 +23,8 @@ def test_cloud_login_with_wrong_password(new_environment):
 
 
 @allure.feature('Cloud')
-@allure.story('Login')
-@allure.severity(allure.severity_level.BLOCKER)
+@allure.story('Login with mistakes')
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Login in the Cloud through username and password with wrong username")
 @pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
 def test_cloud_login_with_wrong_username(new_environment, password):
@@ -39,8 +39,8 @@ def test_cloud_login_with_wrong_username(new_environment, password):
 
 
 @allure.feature('Cloud')
-@allure.story('Login')
-@allure.severity(allure.severity_level.BLOCKER)
+@allure.story('Login with mistakes')
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Login in the Cloud through username and password: username without @")
 @pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
 def test_cloud_login_with_wrong_type_username1(new_environment, password):
@@ -55,7 +55,9 @@ def test_cloud_login_with_wrong_type_username1(new_environment, password):
                                                               "'ItIsNotEmail' is missing an '@'.")
 
 
-@allure.severity(allure.severity_level.BLOCKER)
+@allure.feature('Cloud')
+@allure.story('Login with mistakes')
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Login in the Cloud through username and password: username without symbols after @")
 @pytest.mark.parametrize("password", [CLOUD_PASSWORD, ""])
 def test_cloud_login_with_wrong_type_username2(new_environment, password):
@@ -72,8 +74,8 @@ def test_cloud_login_with_wrong_type_username2(new_environment, password):
 
 
 @allure.feature('Cloud')
-@allure.story('Login')
-@allure.severity(allure.severity_level.BLOCKER)
+@allure.story('Login with mistakes')
+@allure.severity(allure.severity_level.CRITICAL)
 @allure.title("Login in the Cloud with empty fields")
 @pytest.mark.parametrize("username,password,field", [("", CLOUD_PASSWORD, LoginPageLocators.USERNAME_INPUT),
                                                      (CLOUD_USERNAME, "", LoginPageLocators.PASSWORD_INPUT)])
@@ -83,7 +85,7 @@ def test_cloud_login_with_empty_fields(new_environment, username, password, fiel
         LoginPageHelper(new_environment).login(username, password)
 
     with allure.step("2. Validate authorization"):
-        LoginPageHelper(new_environment).validate_login_alert(field, "Please fill out this field.")
+        LoginPageHelper(new_environment).validate_login_alert(field, "You have empty field")
 
 
 @allure.feature('Cloud')
@@ -101,7 +103,7 @@ def test_cloud_login_with_right_credentials(new_environment):
 
 
 @allure.feature('Cloud')
-@allure.story('Login')
+@allure.story('Google Login')
 @allure.severity(allure.severity_level.BLOCKER)
 @allure.title("Login in the Cloud with google")
 def test_cloud_login_with_google(new_environment):
